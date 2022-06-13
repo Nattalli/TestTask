@@ -1,8 +1,10 @@
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions, status
 from .models import Post, Like
 from rest_framework.response import Response
-from .serializers import PostSerializer, PostListSerializer, LikeSerializer
+from .serializers import PostSerializer, PostListSerializer, LikeSerializer, LikeAnalyticSerializer
 from TestTask.pagination import NewPagination
 
 User = get_user_model()
@@ -34,6 +36,7 @@ class GetPostListAPIView(generics.ListAPIView):
 # the first solution, when the button to like and unlike are different
 class PostLikeAPIView(generics.CreateAPIView):
     """
+    Endpoint if like and unlike is not the same button.
     Post like. Allowed for authorised users only. In the url sends post id.
     """
     queryset = Like.objects.all()
@@ -58,6 +61,7 @@ class PostLikeAPIView(generics.CreateAPIView):
 
 class PostUnlikeAPIView(generics.DestroyAPIView):
     """
+    Endpoint if like and unlike is not the same button.
     Post unlike. Allowed for authorised users only. In the url sends post id.
     """
     queryset = Like.objects.all()
@@ -79,6 +83,7 @@ class PostUnlikeAPIView(generics.DestroyAPIView):
 # the second solution, when like and unlike is the same button
 class PostLikeUnlikeAPIView(generics.CreateAPIView):
     """
+    Endpoint if like and unlike is the same button.
     Post like/unlike. Allowed for authorised users only. In the url sends post id.
     """
     queryset = Like.objects.all()
@@ -98,3 +103,21 @@ class PostLikeUnlikeAPIView(generics.CreateAPIView):
         else:
             Like.objects.get(post_id=post_id, user_id=user_id).delete()
             return Response(data={'message': 'Like successfully deleted.'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class AnalyticsAPIView(generics.ListAPIView):
+    """
+    return a quantity of likes per day in period [date_from, date_to]. Date_from and date_to send in request parameters
+    in the format %Y-%m-%d
+    """
+    queryset = Like.objects.all()
+    serializer_class = LikeAnalyticSerializer
+    pagination_class = NewPagination
+
+    def list(self, request, *args, **kwargs):
+        data = {
+            'date_from': request.query_params.get('date_from'),
+            'date_to': request.query_params.get('date_to')
+        }
+        serializer = self.get_serializer(data, many=False)
+        return Response(serializer.data)

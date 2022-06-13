@@ -150,4 +150,4 @@ class Post(SEO, models.Model):
 class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Liked post', related_name='likes')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Like`s owner')
-    time = models.DateTimeField(auto_now_add=True)
+    time = models.DateField(auto_now_add=True)
