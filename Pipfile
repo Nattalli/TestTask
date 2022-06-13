@@ -10,6 +10,11 @@ drf-yasg = "*"
 django-rest-swagger = "*"
 python-dotenv = "*"
 django-cors-headers = "*"
+django-modeltranslation = "*"
+django-ok-seo = "*"
+django-ckeditor = "*"
+djangorestframework-simplejwt = "*"
+pillow = "*"
 
 [dev-packages]
 
