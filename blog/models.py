@@ -4,7 +4,6 @@ from django.utils.text import slugify
 from django.utils.translation import pgettext_lazy
 from django.contrib.auth import get_user_model
 
-
 from seo.const import (
     INDEX_CHOICES,
     FOLLOW_CHOICES,
@@ -149,6 +148,6 @@ class Post(SEO, models.Model):
 
 
 class Like(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Liked post')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, verbose_name='Liked post', related_name='likes')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Like`s owner')
     time = models.DateTimeField(auto_now_add=True)
