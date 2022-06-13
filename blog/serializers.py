@@ -47,3 +47,9 @@ class LikeAnalyticSerializer(serializers.Serializer):
             date_from += datetime.timedelta(days=1)
 
         return rep
+
+
+class UserAnalyticSerializer(serializers.Serializer):
+
+    activity = serializers.DateTimeField()
+    login = serializers.DateTimeField()

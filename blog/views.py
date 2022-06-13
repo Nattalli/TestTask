@@ -1,11 +1,11 @@
-from datetime import datetime
-
 from django.contrib.auth import get_user_model
 from rest_framework import generics, permissions, status
 from .models import Post, Like
 from rest_framework.response import Response
-from .serializers import PostSerializer, PostListSerializer, LikeSerializer, LikeAnalyticSerializer
+from .serializers import PostSerializer, PostListSerializer, LikeSerializer, LikeAnalyticSerializer, \
+    UserAnalyticSerializer
 from TestTask.pagination import NewPagination
+from last_active.models import LastActive
 
 User = get_user_model()
 
@@ -118,6 +118,26 @@ class AnalyticsAPIView(generics.ListAPIView):
         data = {
             'date_from': request.query_params.get('date_from'),
             'date_to': request.query_params.get('date_to')
+        }
+        serializer = self.get_serializer(data, many=False)
+        return Response(serializer.data)
+
+
+class UserAnaliticAPIView(generics.RetrieveAPIView):
+    """
+    Return user last activity at the site and when he was login
+    """
+
+    queryset = User.objects.all()
+    serializer_class = UserAnalyticSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        user = User.objects.get(id=kwargs['pk'])
+        last_login = user.last_login
+        last_activity = LastActive.objects.get(user=user).last_active
+        data = {
+            'login': last_login,
+            'activity': last_activity
         }
         serializer = self.get_serializer(data, many=False)
         return Response(serializer.data)

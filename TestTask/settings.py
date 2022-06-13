@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     'ckeditor',
+    'last_active',
+    'django.contrib.sites',
 
     'blog'
 ]
@@ -45,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'last_active.middleware.LastActiveMiddleware'
 ]
 
 ROOT_URLCONF = 'TestTask.urls'
