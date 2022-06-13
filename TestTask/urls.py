@@ -16,8 +16,11 @@ schema_view = get_schema_view(
 )
 
 api = [
-    path('blog/', include('blog.urls'))
-    ]
+    path('blog/', include('blog.urls')),                    # urls of post creation, like, unlike, analytic
+    path('auth/', include('djoser.urls')),                  # user sign up and information changing
+    path('auth/', include('djoser.urls.jwt')),              # token create, refresh, verify
+    path('api-auth/', include('rest_framework.urls'))       # login, logout urls
+]
 
 urlpatterns = [
     path('api/', include(api)),

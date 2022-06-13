@@ -25,8 +25,10 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'django_filters',
     'drf_yasg',
     'rest_framework',
+    'djoser',
     'corsheaders',
     'ckeditor',
 

@@ -15,6 +15,8 @@ django-ok-seo = "*"
 django-ckeditor = "*"
 djangorestframework-simplejwt = "*"
 pillow = "*"
+djoser = "*"
+django-filter = "*"
 
 [dev-packages]
 
