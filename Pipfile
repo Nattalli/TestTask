@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+drf-yasg = "*"
+django-rest-swagger = "*"
+python-dotenv = "*"
+django-cors-headers = "*"
+django-modeltranslation = "*"
+django-ok-seo = "*"
+django-ckeditor = "*"
+djangorestframework-simplejwt = "*"
+pillow = "*"
+djoser = "*"
+django-filter = "*"
+django-last-active = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
