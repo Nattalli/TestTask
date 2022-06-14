@@ -104,7 +104,7 @@ class PostLikeUnlikeAPIView(generics.CreateAPIView):
         instance = Like.objects.filter(post_id=post_id, user_id=user_id)
         if instance.count() == 0:
             try:
-                like = Like.objects.create(post_id=post_id, user_id=user_id)
+                Like.objects.create(post_id=post_id, user_id=user_id)
                 return Response(data={'message': 'Liked successfully!'}, status=status.HTTP_201_CREATED)
             except:
                 return Response(data={'message': 'Such post does not exist.'}, status=status.HTTP_404_NOT_FOUND)
@@ -123,12 +123,14 @@ class AnalyticsAPIView(generics.ListAPIView):
     pagination_class = NewPagination
 
     def list(self, request, *args, **kwargs):
+        print(request)
         data = {
             'date_from': request.query_params.get('date_from'),
             'date_to': request.query_params.get('date_to')
         }
+        print(data)
         serializer = self.get_serializer(data, many=False)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserAnaliticAPIView(generics.RetrieveAPIView):
