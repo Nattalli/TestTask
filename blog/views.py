@@ -19,6 +19,14 @@ class CreatePostAPIView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class GetPostAPIView(generics.RetrieveAPIView):
+    """
+    Return post by pk
+    """
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+
 class GetPostListAPIView(generics.ListAPIView):
     """
     Return a list of all created posts.

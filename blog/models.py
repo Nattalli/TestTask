@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 from django.utils.text import slugify
 from django.utils.translation import pgettext_lazy
 from django.contrib.auth import get_user_model
@@ -145,6 +146,9 @@ class Post(SEO, models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('get-post', args=[self.id])
 
 
 class Like(models.Model):
